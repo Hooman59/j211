@@ -19,7 +19,7 @@ enum varKind
     Settings,
     Input,
     Output,
-    Internal
+    Local
 };
 
 enum BlockType

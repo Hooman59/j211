@@ -22,5 +22,14 @@ typedef struct coapResourceRecord
     coap_method_handler_t getHandler;
     coap_method_handler_t putHandler;
 }CoapResourceRecord;
+
+
+typedef void (*FPTR_hnd)(coap_context_t  *ctx, struct coap_resource_t *resource,
+                         const coap_endpoint_t *local_interface,
+                         coap_address_t *peer, coap_pdu_t *request, str *token,
+                          coap_pdu_t *response);
+
+//typedef void (*FPTR_hnd)();
+
 #endif // COAPRESOURCE_H
 

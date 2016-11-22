@@ -5,17 +5,18 @@
 
 
 
-
 void FBwrapper::initialize()
 {
 
-    cb((unsigned char*)"HC12\0");
-    //FBManager::initialize((unsigned char*)"HC");
+    FBManager  FBManagerR1;
+    FBManagerR1.hnd_get = hnd_get;
+    FBManagerR1.hnd_put = hnd_put;
+    FBManagerR1.initialize((unsigned char*)"HC1");
 
     numberOfFB_ADD = 0;
     if(numberOfFB_ADD > 0)
     {
-      //   FBManager::CreateBlock<FB_Add,FB_ADD_Struct> ( FB_AddBlock, FB_Add_Registers, tmp_FB_Add_Registers, write_FB_Add_Registers, numberOfFB_ADD,FB_ADD_BlockNumOfparam, (char*)"FB_Add" , B_FB_ADD);
+         FBManagerR1.CreateBlock<FB_Add,FB_ADD_Struct> ( FB_AddBlock, FB_Add_Registers, tmp_FB_Add_Registers, write_FB_Add_Registers, numberOfFB_ADD,FB_ADD_BlockNumOfparam, (char*)"FB_Add" , B_FB_ADD);
 
          for(int i=0; i<numberOfFB_ADD; i++)
              FB_AddBlock[i]->initialize();
