@@ -3,7 +3,7 @@
 #include <common/enums.h>
 #include <common/coapresource.h>
 #include <common/baseblock.h>
-
+#include "fb_add.h"
 
 
 
@@ -12,9 +12,10 @@ class FBManager
 {
 public:
     //FBManager(unsigned char* Interface);
-    static BaseBlock    **Blocks;
-    static unsigned short  blkIndex;
-    static unsigned short  rsIndex;
+
+    BaseBlock    **Blocks;
+    unsigned short  blkIndex;
+    unsigned short  rsIndex;
 
 
     void initialize(unsigned char* interface);
@@ -24,11 +25,13 @@ public:
     void createBlock_RSrecord(char *blkName, char *objNumStr, unsigned char blkNum);
     void makeRSrecord(unsigned char index,const char* interface,const char* rtype,const char *title,const char *suburi, varKind subTitle,const char* objNum,coap_method_handler_t getHdlr,coap_method_handler_t putHdlr,unsigned char blkNum);
 
-    static unsigned char Interface[lenOfInterface];
-    static CoapResourceRecord RSrecord[200];
+    unsigned char Interface[lenOfInterface];
+    CoapResourceRecord RSrecord[200];
 
     FPTR_hnd hnd_get;
     FPTR_hnd hnd_put;
+
+    int test;
 
 
 

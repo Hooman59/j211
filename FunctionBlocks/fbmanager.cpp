@@ -1,13 +1,14 @@
 #include "fbmanager.h"
+#include "fb_add.h"
 
 
+template void FBManager::CreateBlock <FB_Add,FB_ADD_Struct> (FB_Add **(&C_Block), FB_ADD_Struct **(&C_TBreg), FB_ADD_Struct **(&C_TBtmpReg), FB_ADD_Struct **(&C_TBwriteReg),unsigned char _numOfBlocks,int numberOfParams, char* blkNAME, BlockType BLKtype);
 
-
-unsigned short     FBManager::blkIndex;
+/*unsigned short     FBManager::blkIndex;
 unsigned short     FBManager::rsIndex;
 unsigned char      FBManager::Interface[lenOfInterface];
 CoapResourceRecord FBManager::RSrecord[200];
-
+*/
 
 
 void  FBManager::initialize(unsigned char* interface)
@@ -15,12 +16,14 @@ void  FBManager::initialize(unsigned char* interface)
 
     blkIndex = 0;
     rsIndex  = 0;
+    Blocks = new BaseBlock*[1];
     //QString st((const char *)interface);
     memset(Interface,0,lenOfInterface);
     memcpy(Interface,interface,lenOfInterface);
    // qDebug()<<"interface="<<st;
 
 }
+
 
 
 template <class BlockTYPE,class TbTYPE>
@@ -47,8 +50,12 @@ template <class BlockTYPE,class TbTYPE>
                 blkIndex++;
 
             }
+            test = 6;
 
 }
+
+
+
 
 
  void  FBManager::initial_resources(BlockType blktype, unsigned char blkNum, unsigned char objNum)

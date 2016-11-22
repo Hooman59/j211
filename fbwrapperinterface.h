@@ -1,6 +1,7 @@
 #ifndef FBWRAPPERINTERFACE_H
 #define FBWRAPPERINTERFACE_H
 #include <common/coapresource.h>
+#include <FunctionBlocks/fbmanager.h>
 
 
 
@@ -13,6 +14,8 @@ public:
     virtual void run()=0;
     FPTR_hnd hnd_get;
     FPTR_hnd hnd_put;
+    FBManager *FBManagerR1;
+
 
 };
 
