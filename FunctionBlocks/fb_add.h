@@ -8,7 +8,7 @@
 #include <common/baseblock.h>
 #include <FunctionBlocks/fbmanager.h>
 
-#define FB_ADD_BlockNumOfparam 3
+#define FB_ADD_BlockNumOfparam 4
 
 
 struct __attribute__((packed)) FB_ADD_Struct
@@ -16,6 +16,7 @@ struct __attribute__((packed)) FB_ADD_Struct
     unsigned short in1;
     unsigned short in2;
     unsigned short out;
+    unsigned short th;
 
 };
 
@@ -36,6 +37,7 @@ public:
     //**********Output params
      ushortParam   pmo_out;
     //*********Local params
+     ushortParam   pmc_th;
 
     void run();
     void initialize();

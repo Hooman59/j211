@@ -1,5 +1,6 @@
 #include "fbmanager.h"
 #include "fb_add.h"
+#include <qdebug.h>
 
 
 template void FBManager::CreateBlock <FB_Add,FB_ADD_Struct> (FB_Add **(&C_Block), FB_ADD_Struct **(&C_TBreg), FB_ADD_Struct **(&C_TBtmpReg), FB_ADD_Struct **(&C_TBwriteReg),unsigned char _numOfBlocks,int numberOfParams, char* blkNAME, BlockType BLKtype);
@@ -20,6 +21,10 @@ void  FBManager::initialize(unsigned char* interface)
     //QString st((const char *)interface);
     memset(Interface,0,lenOfInterface);
     memcpy(Interface,interface,lenOfInterface);
+
+    numOfResource = 0;
+
+
    // qDebug()<<"interface="<<st;
 
 }
@@ -50,7 +55,10 @@ template <class BlockTYPE,class TbTYPE>
                 blkIndex++;
 
             }
-            test = 6;
+
+           // qDebug()<<"_numOfBlocks"<<_numOfBlocks;
+            numOfResource = (_numOfBlocks * 3) + numOfResource;
+
 
 }
 

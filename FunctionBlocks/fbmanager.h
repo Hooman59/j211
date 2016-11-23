@@ -31,7 +31,7 @@ public:
     FPTR_hnd hnd_get;
     FPTR_hnd hnd_put;
 
-    int test;
+    unsigned short numOfResource;
 
 
 
