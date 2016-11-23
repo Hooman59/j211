@@ -36,6 +36,6 @@ enum BlockType
   B_BarFanCoil,
   B_InternalValues,
   B_Calander,
-  B_FB_ADD
+  B_FB
 };
 #endif

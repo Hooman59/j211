@@ -21,7 +21,7 @@ public:
     void initialize(unsigned char* interface);
     template <class BlockTYPE,class TbTYPE>
             void  CreateBlock(BlockTYPE **(&C_Block), TbTYPE **(&C_TBreg), TbTYPE **(&C_TBtmpReg), TbTYPE **(&C_TBwriteReg),unsigned char _numOfBlocks,int numberOfParams, char* blkNAME, BlockType BLKtype);
-    void initial_resources(BlockType blktype, unsigned char blkNum, unsigned char objNum);
+    void initial_resources(BlockType blktype, unsigned char blkNum, char *blkName, unsigned char objNum);
     void createBlock_RSrecord(char *blkName, char *objNumStr, unsigned char blkNum);
     void makeRSrecord(unsigned char index,const char* interface,const char* rtype,const char *title,const char *suburi, varKind subTitle,const char* objNum,coap_method_handler_t getHdlr,coap_method_handler_t putHdlr,unsigned char blkNum);
 
@@ -32,6 +32,7 @@ public:
     FPTR_hnd hnd_put;
 
     unsigned short numOfResource;
+    unsigned short numOfBlocks;
 
 
 

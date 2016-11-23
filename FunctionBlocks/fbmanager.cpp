@@ -23,6 +23,7 @@ void  FBManager::initialize(unsigned char* interface)
     memcpy(Interface,interface,lenOfInterface);
 
     numOfResource = 0;
+    numOfBlocks = 0;
 
 
    // qDebug()<<"interface="<<st;
@@ -51,13 +52,17 @@ template <class BlockTYPE,class TbTYPE>
             {
                 C_Block[i] = new BlockTYPE(C_TBreg[i],C_TBtmpReg[i],C_TBwriteReg[i] ,(char*)blkNAME,BLKtype,i,numberOfParams);
                 Blocks[blkIndex] = (BaseBlock*)C_Block[i];
-                initial_resources(BLKtype,blkIndex,i);
+                memset(Blocks[blkIndex]->name,0,30);
+                strcpy(Blocks[blkIndex]->name,blkNAME);
+                Blocks[blkIndex]->blockNum = i;
+                initial_resources(BLKtype,blkIndex,(char*)blkNAME,i);
                 blkIndex++;
 
             }
 
            // qDebug()<<"_numOfBlocks"<<_numOfBlocks;
             numOfResource = (_numOfBlocks * 3) + numOfResource;
+            numOfBlocks   = _numOfBlocks + numOfBlocks;
 
 
 }
@@ -66,22 +71,15 @@ template <class BlockTYPE,class TbTYPE>
 
 
 
- void  FBManager::initial_resources(BlockType blktype, unsigned char blkNum, unsigned char objNum)
+void  FBManager::initial_resources(BlockType blktype, unsigned char blkNum, char* blkName ,unsigned char objNum)
 {
 
      char objNumStr[5];
      memset(objNumStr,0,5);
      sprintf(objNumStr,"%d",objNum);
-     switch(blktype)
-     {
-       case B_FB_ADD:
-           createBlock_RSrecord("FB_ADD", objNumStr,blkNum);
-         break;
+     createBlock_RSrecord(blkName, objNumStr,blkNum);
 
-      default:
-         break;
 
-     }
 
 }
 
