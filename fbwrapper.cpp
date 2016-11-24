@@ -16,7 +16,7 @@ void FBwrapper::initialize()
     numberOfFB_ADD = 2;
     if(numberOfFB_ADD > 0)
     {
-         FBManagerR1->CreateBlock<FB_Add,FB_ADD_Struct> ( FB_AddBlock, FB_Add_Registers, tmp_FB_Add_Registers, write_FB_Add_Registers, numberOfFB_ADD,FB_ADD_BlockNumOfparam, (char*)"FB_MUL" , B_FB);
+         FBManagerR1->CreateBlock<FB_Add,FB_ADD_Struct> ( FB_AddBlock, FB_Add_Registers, tmp_FB_Add_Registers, write_FB_Add_Registers, numberOfFB_ADD,FB_ADD_BlockNumOfparam, (char*)"FB_ADD" , B_FB);
          for(int i=0; i<numberOfFB_ADD; i++)
              FB_AddBlock[i]->initialize();
     }

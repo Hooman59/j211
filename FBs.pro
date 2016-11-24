@@ -13,7 +13,8 @@ TEMPLATE = lib
 SOURCES += \
     fbwrapper.cpp \
     FunctionBlocks/fb_add.cpp \
-    FunctionBlocks/fbmanager.cpp
+    FunctionBlocks/fbmanager.cpp \
+    common/baseblock.cpp
 
 
 target.path = /root

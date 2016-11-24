@@ -41,6 +41,7 @@ public:
 
     void run();
     void initialize();
+    void Calculate();
 
     void SnapInFromCoap();
 

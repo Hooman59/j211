@@ -67,7 +67,7 @@ public:
      void textRead(char*){}
      void textWrite(char*){}
 
-private:
+//private:
      unsigned short *ptr;
      unsigned short *value;
      unsigned short *tmpValue;

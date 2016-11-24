@@ -53,17 +53,19 @@ void FB_Add::initialize()
 void FB_Add::run()
 {
     SnapInFromCoap();
+    memcpy((void*)pTmpRegisters,(void*)pRegisters, sizeof(FB_ADD_Struct));
 
-    //pmo_out.value = pmi_in1.value +  pmi_in2.value ;
-
-
-   /* static int i=0;
-    *(unsigned short*)(pmi_in1.voidTmpPtr) = i +  *(unsigned short*)(pmi_in1.voidTmpPtr) ;
+    Calculate();
 
     checkDataChange();
 
-    *(unsigned short*)(pmi_in1.voidPtr) = *(unsigned short*)(pmi_in1.voidTmpPtr) ;
-    */
+     memcpy((void*)pRegisters,(void*)pTmpRegisters, sizeof(FB_ADD_Struct));
+
+}
+
+void FB_Add::Calculate()
+{
+    *(pmo_out.tmpValue) = *(pmi_in1.value) +  *(pmi_in2.value) ;
 }
 
 void FB_Add::SnapInFromCoap()
