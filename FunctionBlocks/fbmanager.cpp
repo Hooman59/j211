@@ -55,6 +55,7 @@ template <class BlockTYPE,class TbTYPE>
                 memset(Blocks[blkIndex]->name,0,30);
                 strcpy(Blocks[blkIndex]->name,blkNAME);
                 Blocks[blkIndex]->blockNum = i;
+                Blocks[blkIndex]->writeDirty = 0;
                 initial_resources(BLKtype,blkIndex,(char*)blkNAME,i);
                 blkIndex++;
 
