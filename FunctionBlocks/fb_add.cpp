@@ -1,4 +1,5 @@
 #include "fb_add.h"
+#include <QDebug>
 
 FB_Add::FB_Add(FB_ADD_Struct *registers,FB_ADD_Struct *tmpRegisters,FB_ADD_Struct *writeRegisters,char *Name,BlockType Btype, unsigned short Bnum,unsigned short NumOfParams):BaseBlock(Name,Btype,Bnum,NumOfParams)
 ,pmi_in1(T_ushort,Input,(char*)"in1",0, &(registers->in1),(void*)&(tmpRegisters->in1),(void*)&(writeRegisters->in1))
@@ -51,12 +52,33 @@ void FB_Add::initialize()
 
 void FB_Add::run()
 {
-    static int i=0;
+    SnapInFromCoap();
+
+    //pmo_out.value = pmi_in1.value +  pmi_in2.value ;
+
+
+   /* static int i=0;
     *(unsigned short*)(pmi_in1.voidTmpPtr) = i +  *(unsigned short*)(pmi_in1.voidTmpPtr) ;
 
     checkDataChange();
 
     *(unsigned short*)(pmi_in1.voidPtr) = *(unsigned short*)(pmi_in1.voidTmpPtr) ;
+    */
+}
+
+void FB_Add::SnapInFromCoap()
+{
+    for(int i=0;i<numOfparams;i++)
+    {
+        if(params[i]->writeDirty == 1)
+        {
+            qDebug()<<"params["<<i<<"]->writeDirty == 1";
+            params[i]->writeDirty = 0;
+            params[i]->CpyMain();
+
+        }
+
+    }
 
 }
 

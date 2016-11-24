@@ -42,6 +42,10 @@ public:
     void run();
     void initialize();
 
+    void SnapInFromCoap();
+
+    void SnapOutToMainReg();
+
 };
 
 #endif // FB_ADD_H

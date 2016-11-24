@@ -25,9 +25,10 @@ void FBwrapper::initialize()
 }
 void FBwrapper::run()
 {
-   /* numberOfFB_ADD = 0;
+
+    numberOfFB_ADD = 2;
     for(int i=0; i<numberOfFB_ADD; i++)
          FB_AddBlock[i]->run();
-    qDebug()<<"FBwrapper::run()";
-    */
+    //qDebug()<<"FBwrapper::run()";
+
 }

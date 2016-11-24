@@ -40,9 +40,9 @@ public:
     unsigned char len;
     # define MYTYPE(T) virtual void Read(T *rValue)=0;\
                        virtual void Write(T wValue)=0;
-
       MY_CLASSES
     #undef MYTYPE
+      virtual void CpyMain()=0;
 
       virtual void textRead(char* text)=0;
       virtual void textWrite(char* text)=0;
@@ -56,18 +56,21 @@ public:
 class ushortParam : public param
 {
 public:
-    ushortParam(varType Type, varKind Kind,char *Name ,unsigned short Value,unsigned short *paramptr,void* TMPptr,void* WritePtr):param(Type,Kind,Name,TMPptr,WritePtr){ptr=paramptr;value=Value;*ptr=value;voidPtr =(void*)paramptr;*((unsigned short*)voidPtr) = value;*((unsigned short*)TMPptr) = value; *((unsigned short*)WritePtr) = value; }
-    ~ushortParam(){ptr=NULL;value=0;voidPtr =NULL;}
+    ushortParam(varType Type, varKind Kind,char *Name ,unsigned short Value,unsigned short *paramptr,void* TMPptr,void* WritePtr):param(Type,Kind,Name,TMPptr,WritePtr){ptr=paramptr;value=paramptr ;*value=Value;*ptr=Value;voidPtr =(void*)paramptr;*((unsigned short*)voidPtr) = Value; tmpValue = (unsigned short*)TMPptr;*((unsigned short*)TMPptr) = Value; *((unsigned short*)WritePtr) = Value; }
+    ~ushortParam(){ptr=NULL;value=NULL;tmpValue=NULL;voidPtr =NULL;}
     # define MYTYPE(T)  virtual void Read(T *rValue) {/* *rValue = value;*/*rValue = *ptr; } \
-                        virtual void Write(T wValue){*((unsigned short*)writePtr) = wValue; }//{value=wValue; *ptr=wValue; }
+                        virtual void Write(T wValue){*((unsigned short*)writePtr) = wValue; }\
+
         MY_CLASSES
     #undef MYTYPE
+         virtual void CpyMain(){*ptr = *((unsigned short*)writePtr); }
      void textRead(char*){}
      void textWrite(char*){}
 
 private:
      unsigned short *ptr;
-     unsigned short value;
+     unsigned short *value;
+     unsigned short *tmpValue;
 
 
 };
@@ -79,10 +82,11 @@ public:
     shortParam(varType Type, varKind Kind,char *Name ,short Value,short *paramptr,void* TMPptr,void* WritePtr):param(Type,Kind,Name,TMPptr,WritePtr){ptr=paramptr;value=Value;*ptr=value; voidPtr =(void*)paramptr; *((short*)voidPtr) = value;*((short*)TMPptr) = value; *((short*)WritePtr) = value;}
     ~shortParam(){ptr=NULL;value=0;voidPtr =NULL;}
     # define MYTYPE(T)  virtual void Read(T *rValue) {/* *rValue = value; */ *rValue = *ptr;} \
-                        virtual void Write(T wValue){*((short*)writePtr) = wValue; }
+                        virtual void Write(T wValue){*((short*)writePtr) = wValue; }\
+
      MY_CLASSES
     #undef MYTYPE
-
+     virtual void CpyMain(){*ptr = *((short*)writePtr); }
      void textRead(char*){}
      void textWrite(char*){}
 
@@ -100,11 +104,12 @@ public:
     uintParam(varType Type, varKind Kind,char *Name ,unsigned int Value,unsigned int *paramptr,void* TMPptr,void* WritePtr):param(Type,Kind,Name,TMPptr,WritePtr){ptr=paramptr;value=Value;*ptr=value; voidPtr =(void*)paramptr; *((unsigned int*)voidPtr) = value;*((unsigned int*)TMPptr) = value; *((unsigned int*)WritePtr) = value;}
     ~uintParam(){ptr=NULL;value=0;voidPtr =NULL;}
     # define MYTYPE(T)  virtual void Read(T *rValue) { *rValue = *ptr;} \
-                    virtual void Write(T wValue){*((unsigned int*)writePtr) = wValue; }
+                    virtual void Write(T wValue){*((unsigned int*)writePtr) = wValue; }\
+
      MY_CLASSES
     #undef MYTYPE
 
-
+     virtual void CpyMain(){*ptr = *((unsigned int*)writePtr); }
      void textRead(char* ){}
      void textWrite(char* ){}
 
@@ -122,10 +127,12 @@ public:
     ~floatParam(){ptr=NULL;value=0;voidPtr =NULL;}
 
     # define MYTYPE(T)  virtual void Read(T *rValue) {*rValue = *ptr; /*value;*/} \
-                        virtual void Write(T wValue){*((float*)writePtr) = wValue;}
+                        virtual void Write(T wValue){*((float*)writePtr) = wValue;}\
+
      MY_CLASSES
     #undef MYTYPE
 
+     virtual void CpyMain(){*ptr = *((float*)writePtr); }
      void textRead(char* ){}
      void textWrite(char* ){}
 
@@ -143,9 +150,10 @@ public:
     ~stringParam(){ptr=NULL;memset(value,0,30);voidPtr =NULL;}
     # define MYTYPE(T)  virtual void Read(T *) {} \
                      virtual void Write(T ){}
+
      MY_CLASSES
     #undef MYTYPE
-
+     virtual void CpyMain(){}
      void textRead(char* text){memset(text,0,30);strcpy(text,ptr);/*strcpy(text,value);*/}
      void textWrite(char* text){memset(writePtr,0,30);strcpy((char*)writePtr,text);}
 
