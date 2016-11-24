@@ -79,8 +79,8 @@ public:
 class shortParam : public param
 {
 public:
-    shortParam(varType Type, varKind Kind,char *Name ,short Value,short *paramptr,void* TMPptr,void* WritePtr):param(Type,Kind,Name,TMPptr,WritePtr){ptr=paramptr;value=Value;*ptr=value; voidPtr =(void*)paramptr; *((short*)voidPtr) = value;*((short*)TMPptr) = value; *((short*)WritePtr) = value;}
-    ~shortParam(){ptr=NULL;value=0;voidPtr =NULL;}
+    shortParam(varType Type, varKind Kind,char *Name ,short Value,short *paramptr,void* TMPptr,void* WritePtr):param(Type,Kind,Name,TMPptr,WritePtr){ptr=paramptr; value=paramptr;*value=Value;*ptr=Value; voidPtr =(void*)paramptr; *((short*)voidPtr) = Value;tmpValue=((short*)TMPptr);*((short*)TMPptr) = Value; *((short*)WritePtr) = Value;}
+    ~shortParam(){ptr=NULL;value=NULL;voidPtr =NULL;}
     # define MYTYPE(T)  virtual void Read(T *rValue) {/* *rValue = value; */ *rValue = *ptr;} \
                         virtual void Write(T wValue){*((short*)writePtr) = wValue; }\
 
@@ -92,8 +92,8 @@ public:
 
 private:
     short *ptr;
-    short value;
-
+    short *value;
+    short *tmpValue;
 
 
 };
@@ -101,8 +101,8 @@ private:
 class uintParam : public param
 {
 public:
-    uintParam(varType Type, varKind Kind,char *Name ,unsigned int Value,unsigned int *paramptr,void* TMPptr,void* WritePtr):param(Type,Kind,Name,TMPptr,WritePtr){ptr=paramptr;value=Value;*ptr=value; voidPtr =(void*)paramptr; *((unsigned int*)voidPtr) = value;*((unsigned int*)TMPptr) = value; *((unsigned int*)WritePtr) = value;}
-    ~uintParam(){ptr=NULL;value=0;voidPtr =NULL;}
+    uintParam(varType Type, varKind Kind,char *Name ,unsigned int Value,unsigned int *paramptr,void* TMPptr,void* WritePtr):param(Type,Kind,Name,TMPptr,WritePtr){ptr=paramptr; value=paramptr;*value=Value;*ptr=Value; voidPtr =(void*)paramptr; *((unsigned int*)voidPtr) = Value; tmpValue=((unsigned int*)TMPptr) ;*((unsigned int*)TMPptr) = Value; *((unsigned int*)WritePtr) = Value;}
+    ~uintParam(){ptr=NULL;value=NULL;voidPtr =NULL;}
     # define MYTYPE(T)  virtual void Read(T *rValue) { *rValue = *ptr;} \
                     virtual void Write(T wValue){*((unsigned int*)writePtr) = wValue; }\
 
@@ -115,7 +115,8 @@ public:
 
 private:
     unsigned int *ptr;
-    unsigned int value;
+    unsigned int *value;
+    unsigned int *tmpValue;
 
 };
 
@@ -123,8 +124,8 @@ private:
 class floatParam : public param
 {
 public:
-    floatParam(varType Type, varKind Kind,char *Name ,float Value,float *paramptr,void* TMPptr ,void* WritePtr):param(Type,Kind,Name,TMPptr,WritePtr){ptr=paramptr;value=Value;*ptr=value; voidPtr =(void*)paramptr; *((float*)voidPtr) = value;*((float*)TMPptr) = value; *((float*)WritePtr) = value; }
-    ~floatParam(){ptr=NULL;value=0;voidPtr =NULL;}
+    floatParam(varType Type, varKind Kind,char *Name ,float Value,float *paramptr,void* TMPptr ,void* WritePtr):param(Type,Kind,Name,TMPptr,WritePtr){ptr=paramptr; value=paramptr ;*value=Value;*ptr=Value; voidPtr =(void*)paramptr; *((float*)voidPtr) = Value;tmpValue = ((float*)TMPptr)  ;*((float*)TMPptr) = Value; *((float*)WritePtr) = Value; }
+    ~floatParam(){ptr=NULL;value=NULL;voidPtr =NULL;}
 
     # define MYTYPE(T)  virtual void Read(T *rValue) {*rValue = *ptr; /*value;*/} \
                         virtual void Write(T wValue){*((float*)writePtr) = wValue;}\
@@ -138,7 +139,8 @@ public:
 
 //private:
     float *ptr;
-    float value;
+    float *value;
+    float *tmpValue;
 
 };
 
