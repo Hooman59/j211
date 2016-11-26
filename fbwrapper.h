@@ -15,6 +15,8 @@ public:
     FB_ADD_Struct        **FB_Add_Registers;
     FB_ADD_Struct        **tmp_FB_Add_Registers;
     FB_ADD_Struct        **write_FB_Add_Registers;
+
+
     unsigned char        numberOfFB_ADD;
 
 };

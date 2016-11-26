@@ -77,6 +77,7 @@ void BaseBlock::setDirtyFlag(param *prm)
     switch(prm->kind)
     {
     case Input:
+        qDebug()<<"r_Input->dirty =1";
         r_Input->dirty = 1;
         break;
     case Output:
@@ -84,6 +85,7 @@ void BaseBlock::setDirtyFlag(param *prm)
         r_Output->dirty = 1;
         break;
     case Local:
+        qDebug()<<"r_Local->dirty =1";
         r_Local->dirty = 1;
         break;
     default:
@@ -92,3 +94,45 @@ void BaseBlock::setDirtyFlag(param *prm)
     }
 
 }
+
+
+
+void BaseBlock::SnapInFromCoap()
+{
+    for(int i=0;i<numOfparams;i++)
+    {
+        if(params[i]->writeDirty == 1)
+        {
+            qDebug()<<"params["<<i<<"]->writeDirty == 1";
+            params[i]->writeDirty = 0;
+            params[i]->CpyMain();
+
+        }
+
+    }
+
+}
+
+ void BaseBlock::clearWriteFlag()
+ {
+     writeDirty = 0;
+     for(int i=0;i<numOfparams;i++)
+         params[i]->writeDirty=0;
+ }
+
+ void BaseBlock::run()
+ {
+
+     SnapInFromCoap();
+     checkDataChange();
+     cpyMainToTemp();
+
+     controlAlgorithm(); // controlAlgorithm
+
+     checkDataChange();
+     cpyTempToMain();
+
+   // add resource for generic attr
+ }
+
+

@@ -11,22 +11,14 @@ FB_Add::FB_Add(FB_ADD_Struct *registers,FB_ADD_Struct *tmpRegisters,FB_ADD_Struc
     pTmpRegisters    = tmpRegisters;
     pWriteRegisters  = writeRegisters;
 
-
     int paramIndx=0;
-
-    params = new param*[numOfparams];
-
 
     params[paramIndx++] = & pmi_in1;
     params[paramIndx++] = & pmi_in2;
     params[paramIndx++] = & pmo_out;
-     params[paramIndx]  = & pmc_th;
+    params[paramIndx]  = & pmc_th;
 
-    writeDirty = 0;
-    for(int i=0;i<numOfparams;i++)
-        params[i]->writeDirty=0;
-
-
+   clearWriteFlag();
 
 
 
@@ -35,8 +27,7 @@ FB_Add::FB_Add(FB_ADD_Struct *registers,FB_ADD_Struct *tmpRegisters,FB_ADD_Struc
 FB_Add::~FB_Add()
 {
 
-    for(int i=0;i<numOfparams;i++)
-        params[i]->writeDirty=0;
+    clearWriteFlag();
     pRegisters       = NULL;
     pTmpRegisters    = NULL;
     pWriteRegisters  = NULL;
@@ -50,38 +41,12 @@ void FB_Add::initialize()
 
 }
 
-void FB_Add::run()
+
+
+void FB_Add::controlAlgorithm()
 {
-    SnapInFromCoap();
-    memcpy((void*)pTmpRegisters,(void*)pRegisters, sizeof(FB_ADD_Struct));
-
-    Calculate();
-
-    checkDataChange();
-
-     memcpy((void*)pRegisters,(void*)pTmpRegisters, sizeof(FB_ADD_Struct));
-
+    *(pmo_out.tmpValue) = *(pmi_in1.tmpValue) +  *(pmi_in2.tmpValue) ;
 }
 
-void FB_Add::Calculate()
-{
-    *(pmo_out.tmpValue) = *(pmi_in1.value) +  *(pmi_in2.value) ;
-}
-
-void FB_Add::SnapInFromCoap()
-{
-    for(int i=0;i<numOfparams;i++)
-    {
-        if(params[i]->writeDirty == 1)
-        {
-            qDebug()<<"params["<<i<<"]->writeDirty == 1";
-            params[i]->writeDirty = 0;
-            params[i]->CpyMain();
-
-        }
-
-    }
-
-}
 
 

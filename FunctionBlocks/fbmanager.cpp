@@ -56,6 +56,7 @@ template <class BlockTYPE,class TbTYPE>
                 strcpy(Blocks[blkIndex]->name,blkNAME);
                 Blocks[blkIndex]->blockNum = i;
                 Blocks[blkIndex]->writeDirty = 0;
+                Blocks[blkIndex]->sizeOfBlockStruct = sizeof(TbTYPE);
                 initial_resources(BLKtype,blkIndex,(char*)blkNAME,i);
                 blkIndex++;
 

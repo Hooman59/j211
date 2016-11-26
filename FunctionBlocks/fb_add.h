@@ -26,9 +26,6 @@ class FB_Add : public BaseBlock
 public:
      FB_Add(FB_ADD_Struct *registers,FB_ADD_Struct *tmpRegisters,FB_ADD_Struct *writeRegisters,char *Name,BlockType Btype, unsigned short Bnum,unsigned short NumOfParams);
     ~FB_Add();
-     FB_ADD_Struct *pRegisters      = NULL;
-     FB_ADD_Struct *pTmpRegisters   = NULL;
-     FB_ADD_Struct *pWriteRegisters = NULL;
 
     //****************Input params*******************
      ushortParam pmi_in1;
@@ -39,11 +36,11 @@ public:
     //*********Local params
      ushortParam   pmc_th;
 
-    void run();
+   // void run();
     void initialize();
-    void Calculate();
+    void controlAlgorithm();
 
-    void SnapInFromCoap();
+   // void SnapInFromCoap();
 
     void SnapOutToMainReg();
 
