@@ -1,6 +1,7 @@
 #include "fb_add.h"
 #include <QDebug>
-
+//Select proper BlockClass & Structs (Structs defined in block header)
+//Add Parameter Construction Code Here
 FB_Add::FB_Add(FB_ADD_Struct *registers,FB_ADD_Struct *tmpRegisters,FB_ADD_Struct *writeRegisters,char *Name,BlockType Btype, unsigned short Bnum,unsigned short NumOfParams):BaseBlock(Name,Btype,Bnum,NumOfParams)
 ,pmi_in1(T_ushort,Input,(char*)"in1",0, &(registers->in1),(void*)&(tmpRegisters->in1),(void*)&(writeRegisters->in1))
 ,pmi_in2(T_ushort,Input,(char*)"in2",0, &(registers->in2),(void*)&(tmpRegisters->in2),(void*)&(writeRegisters->in2))
@@ -13,6 +14,7 @@ FB_Add::FB_Add(FB_ADD_Struct *registers,FB_ADD_Struct *tmpRegisters,FB_ADD_Struc
 
     int paramIndx=0;
 
+	//Initilize params Array for each Parameter Here
     params[paramIndx++] = & pmi_in1;
     params[paramIndx++] = & pmi_in2;
     params[paramIndx++] = & pmo_out;
@@ -24,7 +26,7 @@ FB_Add::FB_Add(FB_ADD_Struct *registers,FB_ADD_Struct *tmpRegisters,FB_ADD_Struc
 
 }
 
-FB_Add::~FB_Add()
+FB_Add::~FB_Add()//Do Nothing
 {
 
     clearWriteFlag();
@@ -38,13 +40,14 @@ FB_Add::~FB_Add()
 
 void FB_Add::initialize()
 {
-
+//Add Block Initilize Here
 }
 
 
 
 void FB_Add::controlAlgorithm()
 {
+//Add Block Logic Here
     *(pmo_out.tmpValue) = *(pmi_in1.tmpValue) +  *(pmi_in2.tmpValue) ;
 }
 
